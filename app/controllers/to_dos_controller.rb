@@ -3,8 +3,11 @@ class ToDosController < ApplicationController
 
   # GET /to_dos
   def index
-    @to_dos = ToDo.all
-
+    if user_id = params['user_id'].presence
+      @to_dos = User.find_by_id(user_id).try(:to_dos)
+    else
+      @to_dos = ToDo.all
+    end
     render json: @to_dos
   end
 
@@ -46,6 +49,6 @@ class ToDosController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def to_do_params
-      params.require(:to_do).permit(:description, :user_id, :project_id)
+      params.require(:to_do).permit(:description, :user_id, :project_id, :completed, :completed_at, :assigned_by_id)
     end
 end
