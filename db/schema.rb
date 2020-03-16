@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_15_202754) do
+ActiveRecord::Schema.define(version: 2020_03_15_225856) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -27,15 +27,15 @@ ActiveRecord::Schema.define(version: 2020_03_15_202754) do
 
   create_table "to_dos", force: :cascade do |t|
     t.string "description"
-    t.integer "user_id"
+    t.integer "created_by_id"
     t.integer "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed", default: false
     t.datetime "completed_at"
     t.integer "assigned_by_id"
+    t.index ["created_by_id"], name: "index_to_dos_on_created_by_id"
     t.index ["project_id"], name: "index_to_dos_on_project_id"
-    t.index ["user_id"], name: "index_to_dos_on_user_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
